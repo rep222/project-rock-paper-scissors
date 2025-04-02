@@ -46,5 +46,7 @@ function startGame(){
     }
     if(humanScore > computerScore){
         alert('You win the whole game: '+ humanScore + ' : ' + computerScore);
-    } else alert('You lose the whole game: '+ computerScore + ' : ' + humanScore);
+    } else if (humanScore < computerScore){
+        alert('You lose the whole game: '+ humanScore + ' : ' + computerScore);
+    } else alert('It is a draw! ' + humanScore + ' : ' + computerScore);
  }
