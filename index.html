@@ -11,7 +11,18 @@
         <h1 class="main-heading">Rock Paper Scissors</h1>
     </header>
     <main class="main">
-        <button onclick="startGame()" class="button">Play!</button>
+        <div class="btns-container">
+            <button class="btn-play" id="rock">Rock</button>
+            <button class="btn-play" id="paper">Paper</button>
+            <button class="btn-play" id="scissors">Scissors</button>
+        </div>
+        <div class="outcome-container">
+            <h3 class="your-choice"></h3>
+            <h3 class="computer-choice"></h3>
+            <h2 class="outcome"></h2>
+            <h1 class="score">0:0</h1>
+            <button class="btn-restart">Restart</button>
+        </div>
     </main>
     <script src="script.js"></script>
 </body>

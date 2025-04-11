@@ -1,6 +1,7 @@
 
 let humanScore = 0;
 let computerScore = 0;
+let roundsPlayed = 0;
 
 function getComputerChoice(){
     let random = Math.floor(Math.random() * 3);
@@ -13,10 +14,6 @@ function getComputerChoice(){
 
     return randomChoice;
 }
-function getHumanChoice(){
-    let userChoice = prompt('Rock, Paper, Scissors?').toLowerCase();
-    return userChoice;
-}
 
 function playRound(humanChoice, computerChoice){
     if (humanChoice === computerChoice) {
@@ -27,26 +24,55 @@ function playRound(humanChoice, computerChoice){
         (humanChoice === 'scissors' && computerChoice === 'paper')
     ) {
         humanScore++;
+        roundsPlayed++;
         return 'You win!';
     } else {
         computerScore++;
+        roundsPlayed++;
         return 'You lose!';
     }
 }
 
+const btnsPlay = document.querySelectorAll('.btn-play');
+const outputYourChoice = document.querySelector('.your-choice');
+const outputComputerChoice = document.querySelector('.computer-choice');
+const outcome = document.querySelector('.outcome');
+const score = document.querySelector('.score');
 
+btnsPlay.forEach(function(button){
+    button.addEventListener('click', (e) => {
+        if(roundsPlayed > 4){
+            if (humanScore > computerScore){
+                outcome.innerText = 'Congrats, you win!';
+            } else if ( humanScore < computerScore){
+                outcome.innerText = 'Game over, you lose!';
+            } else outcome.innerText = 'It is a draw! ';
+            return;
+        }
+        let choice = e.target.id;
+        let computer = getComputerChoice();
+        let answer = playRound(choice, computer);
+        outcome.innerText = answer;
+        outputYourChoice.innerText = 'Your choice: ' + choice;
+        outputComputerChoice.innerText = 'Computer choice: ' + computer;
+        score.innerText = humanScore + ' : ' + computerScore;
+    });
+});
 
-function startGame(){
-    for(let i = 0; i < 5; i++){
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        let outcome = playRound(humanSelection,computerSelection);
-        alert(humanSelection + ' vs ' + computerSelection + ' = ' + outcome);
-        alert(humanScore + ' : '+ computerScore);
-    }
-    if(humanScore > computerScore){
-        alert('You win the whole game: '+ humanScore + ' : ' + computerScore);
-    } else if (humanScore < computerScore){
-        alert('You lose the whole game: '+ humanScore + ' : ' + computerScore);
-    } else alert('It is a draw! ' + humanScore + ' : ' + computerScore);
- }
+if (roundsPlayed = 0){
+    btnRestart.disabled = true;
+};
+const btnRestart = document.querySelector('.btn-restart');
+btnRestart.addEventListener('click', ()=> {
+    humanScore = 0;
+    computerScore = 0;
+    roundsPlayed = 0;
+
+    outcome.innerText = '';
+    outputYourChoice.innerText = '';
+    outputComputerChoice.innerText = '';
+    score.innerText = '0 : 0';
+
+    btnsPlay.forEach(btn => btn.disabled = false);
+
+});
